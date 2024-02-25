@@ -13,8 +13,7 @@ class ScrapedTrack(BaseModel):
     track: str
 
 
-RADIO_6_MUSIC__PLAYLIST_URL = """https://www.bbc.co.uk/programmes/articles/
-5JDPyPdDGs3yCLdtPhGgWM7/bbc-radio-6-music-playlist"""
+RADIO_6_MUSIC_PLAYLIST_URL = """https://www.bbc.co.uk/programmes/articles/5JDPyPdDGs3yCLdtPhGgWM7/bbc-radio-6-music-playlist"""
 
 
 def get_core_artist(artist: str) -> str:
@@ -56,7 +55,7 @@ def get_tracks_in_section(section: Tag) -> list[ScrapedTrack]:
 def scrape_radio_6_playlist_tracks() -> list[ScrapedTrack]:
     tracks: list[ScrapedTrack] = []
 
-    page = requests.get(url=RADIO_6_MUSIC__PLAYLIST_URL, timeout=30)
+    page = requests.get(url=RADIO_6_MUSIC_PLAYLIST_URL, timeout=30)
     soup = bs(markup=page.content, features="html.parser")
 
     sections = soup.find_all(
