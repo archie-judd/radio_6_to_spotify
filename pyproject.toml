@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "radio-6-to-spotify"
+version = "0.1.0"
+description = ""
+authors = ["Archie Judd <archie.judd@moixa.com>"]
+readme = "README.md"
+packages = [{include = "radio_6_to_spotify", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+bs4 = "^0.0.1"
+requests = "^2.31.0"
+pydantic = "^2.0"
+black = "^23.3.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.17.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
