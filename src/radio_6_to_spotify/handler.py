@@ -135,6 +135,9 @@ def update_playlist_with_current_tracks(
 
 
 def handler():
+
+    logger.info("Starting")
+
     spotify_client = Spotify(
         client_id=ENVIRONMENT.SPOTIFY_CLIENT_ID,
         client_secret=ENVIRONMENT.SPOTIFY_CLIENT_SECRET,
@@ -157,6 +160,8 @@ def handler():
         current_tracks=current_tracks,
         remove_outdated_tracks=False,
     )
+
+    logger.info("Done")
 
 
 if __name__ == "__main__":
