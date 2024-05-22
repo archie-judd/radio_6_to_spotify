@@ -20,9 +20,6 @@ class Artist:
         artist = cls(name=artist_model.name, uri=artist_model.uri, id=artist_model.id)
         return artist
 
-    def __hash__(self) -> int:
-        return hash(self.id)
-
 
 @dataclass(frozen=True)
 class Album:
@@ -43,9 +40,6 @@ class Album:
             id=album_model.id,
         )
         return album
-
-    def __hash__(self) -> int:
-        return hash(self.id)
 
 
 @dataclass(frozen=True)
@@ -73,8 +67,15 @@ class Track:
         )
         return track
 
+    # We could use the track ID, but this can cause duplicates when assessing which
+    # tracks are already in the playlist, because the same track may appear in multiple
+    # albums, each with a different ID.
     def __hash__(self) -> int:
-        return hash(self.id)
+        artist_names = tuple(artist.name for artist in self.artists)
+        return hash((self.name, artist_names))
+
+    def __eq__(self, other) -> bool:
+        return self.__hash__() == other.__hash__()
 
 
 @dataclass
@@ -106,6 +107,3 @@ class Playlist:
         )
 
         return playlist
-
-    def __hash__(self) -> int:
-        return hash(self.id)

@@ -87,9 +87,10 @@ def scrape_current_tracks_and_get_from_spotify(
         )
         if spotify_tracks:
             tracks = sorted(
-                list(spotify_tracks), key=lambda x: (x.popularity, x.id), reverse=True
+                list(spotify_tracks), key=lambda x: x.popularity, reverse=True
             )
             current_tracks.add(tracks[0])
+
     return current_tracks
 
 
@@ -107,8 +108,9 @@ def update_playlist_with_current_tracks(
 
     if uris_to_add:
         logger.info(
-            "Addings these tracks: %s to the synched playlist",
+            "Addings these tracks: %s to playlist: %s",
             [track.name for track in tracks_to_add],
+            playlist_id,
         )
         spotify_client.add_to_playlist(playlist_id=playlist.id, track_uris=uris_to_add)
 
@@ -117,8 +119,9 @@ def update_playlist_with_current_tracks(
         uris_to_remove = [track.uri for track in tracks_to_remove]
         if uris_to_remove:
             logger.info(
-                "Removing these tracks: %s from the synched playlist",
+                "Removing these tracks: %s to playlist: %s",
                 [track.name for track in tracks_to_remove],
+                playlist_id,
             )
             spotify_client.remove_from_playlist(
                 playlist_id=playlist.id, track_uris=uris_to_remove
