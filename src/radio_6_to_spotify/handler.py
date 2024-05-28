@@ -87,7 +87,9 @@ def scrape_current_tracks_and_get_from_spotify(
         )
         if spotify_tracks:
             tracks = sorted(
-                list(spotify_tracks), key=lambda x: x.popularity, reverse=True
+                list(spotify_tracks),
+                key=lambda x: (x.popularity, x.id),
+                reverse=True,  # make deterministic
             )
             current_tracks.add(tracks[0])
 
